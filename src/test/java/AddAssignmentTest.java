@@ -39,4 +39,35 @@ public class AddAssignmentTest {
     public void tc_3_id_empty(){
         assertThrows(ValidationException.class, () -> this.service.saveTema("", "a", 1, 1), INVALID_ID_ERROR_MESSAGE);
     }
+
+    @Test
+    public void tc_4_description_null(){
+        assertThrows(ValidationException.class, () -> this.service.saveTema("5", null, 1, 1), INVALID_DESCRIPTION_ERROR_MESSAGE);
+    }
+
+    @Test
+    public void tc_5_description_empty(){
+        assertThrows(ValidationException.class, () -> this.service.saveTema("6", "", 1, 1), INVALID_DESCRIPTION_ERROR_MESSAGE);
+    }
+
+    @Test
+    public void tc_6_deadline_UnderLowerBound(){
+        assertThrows(ValidationException.class, () -> this.service.saveTema("7", "a", 0, 1), INVALID_DEADLINE_ERROR_MESSAGE);
+    }
+
+    @Test
+    public void tc_7_deadline_AboveUpperBound(){
+        assertThrows(ValidationException.class, () -> this.service.saveTema("8", "a", 15, 1), INVALID_DEADLINE_ERROR_MESSAGE);
+    }
+
+    @Test
+    public void tc_8_deadline_startline_reversed(){
+        assertThrows(ValidationException.class, () -> this.service.saveTema("9", "a", 6, 10), INVALID_DEADLINE_ERROR_MESSAGE);
+    }
+
+    @Test
+    public void tc_9_startline_UnderLowerBound(){
+        assertThrows(ValidationException.class, () -> this.service.saveTema("10", "a", 1, 0), INVALID_STARTLINE_ERROR_MESSAGE);
+    }
+
 }
