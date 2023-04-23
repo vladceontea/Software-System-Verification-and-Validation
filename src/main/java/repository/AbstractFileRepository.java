@@ -1,6 +1,7 @@
 package repository;
 
 import domain.HasID;
+import exception.AlreadyExistingEntityException;
 import validation.ValidationException;
 import validation.Validator;
 
@@ -23,11 +24,9 @@ public abstract class AbstractFileRepository<ID, E extends HasID<ID>> extends Ab
     }
 
     @Override
-    public E save(E entity) throws ValidationException {
+    public E save(E entity) throws ValidationException, AlreadyExistingEntityException {
         E result = super.save(entity);
-        if (result == null) {
-            writeToFile(entity);
-        }
+        writeToFile(entity);
         return result;
     }
 

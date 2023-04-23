@@ -1,6 +1,7 @@
 package repository;
 
 import domain.*;
+import exception.AlreadyExistingEntityException;
 import validation.*;
 
 import java.util.HashMap;
@@ -29,15 +30,15 @@ public abstract class AbstractCRUDRepository<ID, E extends HasID<ID>> implements
     public Iterable<E> findAll() { return entities.values(); }
 
     @Override
-    public E save(E entity) throws ValidationException {
-        try {
-            validator.validate(entity);
-            return entities.putIfAbsent(entity.getID(), entity);
+    public E save(E entity)  throws ValidationException, AlreadyExistingEntityException {
+        validator.validate(entity);
+        var entityAlreadyExisting = entities.putIfAbsent(entity.getID(), entity);
+
+        if (entityAlreadyExisting != null) {
+            throw new AlreadyExistingEntityException("The entity already exists!\n");
         }
-        catch (ValidationException ve) {
-            System.out.println("Entitatea nu este valida! \n");
-            return null;
-        }
+
+        return entity;
     }
 
     @Override

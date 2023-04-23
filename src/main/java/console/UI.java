@@ -1,7 +1,9 @@
 package console;
 
 import domain.*;
+import exception.AlreadyExistingEntityException;
 import service.Service;
+import validation.ValidationException;
 
 import java.util.Scanner;
 
@@ -84,11 +86,11 @@ public class UI {
         System.out.println("Introduceti saptamana startline a temei: ");
         int startline = scanner.nextInt();
 
-        if (service.saveTema(id, descriere, deadline, startline) != 0) {
+        try {
+            service.saveTema(id, descriere, deadline, startline);
             System.out.println("Tema adaugata cu succes! \n");
-        }
-        else {
-            System.out.println("Tema existenta sau invalida! \n");
+        } catch (ValidationException | AlreadyExistingEntityException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 

@@ -1,21 +1,15 @@
+import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;import domain.Nota;
 
-import domain.Nota;
 import domain.Student;
 import domain.Tema;
-import org.junit.Test;
-import static org.junit.Assert.*;
-
 import repository.NotaXMLRepository;
 import repository.StudentXMLRepository;
 import repository.TemaXMLRepository;
 import service.Service;
-import validation.NotaValidator;
-import validation.StudentValidator;
-import validation.TemaValidator;
-import validation.Validator;
+import validation.*;
 
 public class AddAssignmentTest {
-
     Validator<Student> studentValidator = new StudentValidator();
     Validator<Tema> temaValidator = new TemaValidator();
     Validator<Nota> notaValidator = new NotaValidator();
@@ -26,18 +20,23 @@ public class AddAssignmentTest {
 
     Service service = new Service(fileRepository1, fileRepository2, fileRepository3);
 
+    private static final String INVALID_ID_ERROR_MESSAGE = "ID invalid! \n";
+    private static final String INVALID_DESCRIPTION_ERROR_MESSAGE = "Descriere invalida! \n";
+    private static final String INVALID_DEADLINE_ERROR_MESSAGE = "Deadline invalid! \n";
+    private static final String INVALID_STARTLINE_ERROR_MESSAGE = "Data de primire invalida! \n";
+
     @Test
     public void tc_1_id_allTrue(){
-        assertEquals(1, service.saveTema("4", "tema_4", 7, 5));
+        assertDoesNotThrow(() -> service.saveTema("4", "tema_4", 7, 5));
     }
 
     @Test
     public void tc_2_id_null(){
-        assertEquals(1, service.saveTema(null, "tema_4", 7, 5));
+        assertThrows(ValidationException.class, () -> this.service.saveTema(null, "a", 1, 1), INVALID_ID_ERROR_MESSAGE);
     }
 
     @Test
     public void tc_3_id_empty(){
-        assertEquals(1, service.saveTema("", "tema_4", 7, 5));
+        assertThrows(ValidationException.class, () -> this.service.saveTema("", "a", 1, 1), INVALID_ID_ERROR_MESSAGE);
     }
 }

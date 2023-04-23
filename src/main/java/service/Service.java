@@ -1,7 +1,9 @@
 package service;
 
 import domain.*;
+import exception.AlreadyExistingEntityException;
 import repository.*;
+import validation.ValidationException;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
@@ -34,14 +36,8 @@ public class Service {
         return 0;
     }
 
-    public int saveTema(String id, String descriere, int deadline, int startline) {
-        Tema tema = new Tema(id, descriere, deadline, startline);
-        Tema result = temaXmlRepo.save(tema);
-
-        if (result == null) {
-            return 1;
-        }
-        return 0;
+    public void saveTema(String id, String descriere, int deadline, int startline) throws ValidationException, AlreadyExistingEntityException {
+        temaXmlRepo.save(new Tema(id, descriere, deadline, startline));
     }
 
     public int saveNota(String idStudent, String idTema, double valNota, int predata, String feedback) {
