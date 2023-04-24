@@ -34,9 +34,9 @@ public abstract class AbstractCRUDRepository<ID, E extends HasID<ID>> implements
         validator.validate(entity);
         var entityAlreadyExisting = entities.putIfAbsent(entity.getID(), entity);
 
-        if (entityAlreadyExisting != null) {
-            throw new AlreadyExistingEntityException("The entity already exists!\n");
-        }
+//        if (entityAlreadyExisting != null) {
+//            throw new AlreadyExistingEntityException("The entity already exists!\n");
+//        }
 
         return entity;
     }

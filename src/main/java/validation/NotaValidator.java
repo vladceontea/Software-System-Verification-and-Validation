@@ -6,13 +6,13 @@ public class NotaValidator implements Validator<Nota> {
         if (nota.getID().getObject1() == null || nota.getID().equals("")) {
             throw new ValidationException("ID Student invalid! \n");
         }
-        if (nota.getID().getObject2() == null || nota.getID().equals("")) {
+        if (nota.getID().getObject2() == null) {
             throw new ValidationException("ID Tema invalid! \n");
         }
         if (nota.getNota() < 0 || nota.getNota() > 10) {
             throw new ValidationException("Nota invalida! \n");
         }
-        if (nota.getSaptamanaPredare() < 0) {
+        if (nota.getSaptamanaPredare() < 0 || nota.getSaptamanaPredare() > 14) {
             throw new ValidationException("Saptamana de predare invalida! \n");
         }
     }
