@@ -42,8 +42,8 @@ public class IntegrationTest {
 
     @Test
     public void tc_4_call() {
-        tc_1_emptyStudentName();
-        tc_2_validTema();
-        tc_3_invalidStudent();
+        assertEquals(0, service.saveStudent("11", "Vasile", 111));
+        assertDoesNotThrow(() -> service.saveTema("4", "tema_4", 7, 5));
+        assertEquals(0, service.saveNota("11", "4", 7.5, 7, "excellent"));
     }
 }
