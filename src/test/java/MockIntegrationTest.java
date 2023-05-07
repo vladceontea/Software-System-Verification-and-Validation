@@ -46,7 +46,7 @@ public class MockIntegrationTest {
 
 
     @Test
-    public void mock_2_AddAssignment() {
+    public void mock_2_addAssignment() {
         when(fileRepository1.save(new Student("7", "Anna", 933))).thenReturn(null);
 
         when(fileRepository2.save(new Tema("4", "tema_4", 7, 5))).thenReturn(null);
@@ -59,7 +59,7 @@ public class MockIntegrationTest {
     }
 
     @Test
-    public void mock_3_AddGrade() {
+    public void mock_3_addGrade() {
         Student student = new Student("7", "Anna", 933);
 
         Tema tema = new Tema("4", "tema_4", 7, 5);
