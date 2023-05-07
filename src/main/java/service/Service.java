@@ -36,8 +36,13 @@ public class Service {
         return 0;
     }
 
-    public void saveTema(String id, String descriere, int deadline, int startline) throws ValidationException, AlreadyExistingEntityException {
-        temaXmlRepo.save(new Tema(id, descriere, deadline, startline));
+    public int saveTema(String id, String descriere, int deadline, int startline) throws ValidationException, AlreadyExistingEntityException {
+        Tema result = temaXmlRepo.save(new Tema(id, descriere, deadline, startline));
+
+        if (result == null) {
+            return 1;
+        }
+        return 0;
     }
 
     public int saveNota(String idStudent, String idTema, double valNota, int predata, String feedback) {
